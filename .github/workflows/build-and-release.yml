@@ -29,7 +29,7 @@ jobs:
 
     - name: Create Release
       id: create_release
-      uses: softprops/action-gh-release@v2.0.8
+      uses: softprops/action-gh-release@v2
       with:
         files: git-*.pkg
         tag_name: ${{ steps.version.outputs.VERSION }}
