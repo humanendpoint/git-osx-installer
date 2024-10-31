@@ -1,0 +1,44 @@
+name: Build and Release
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 1 * *'
+
+jobs:
+  build:
+    runs-on: macos-14-xlarge
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up Git
+      run: |
+        git config --global user.email "actions@github.com"
+        git config --global user.name "GitHub Actions"
+
+    - name: Install Apple Installer certificates
+      uses: apple-actions/import-codesign-certs@8f3fb608891dd2244cdab3d69cd68c0d37a7fe93 # v2.0.0
+      with:
+        keychain-password: ${{ github.run_id }}
+        p12-file-base64: ${{ secrets.APP_CERTIFICATES_P12_MAOS }}
+        p12-password: ${{ secrets.APP_CERTIFICATES_P12_PASSWORD_MAOS }}
+
+    - name: Get version
+      id: version
+      run: |
+        VERSION=$($GITHUB_WORKSPACE/bin/latest-git-version)
+        echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+
+    - name: Build and Package Git
+      run: make package
+      env:
+        SIGNING_KEY: "Developer ID Installer: Catawiki BV (XVNMP7V3Y4)"
+
+    - name: Create Release
+      id: create_release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: git-*.pkg
+        tag_name: ${{ steps.version.outputs.VERSION }}
