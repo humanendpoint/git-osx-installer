@@ -36,7 +36,7 @@ SUBMAKE_intel := $(SUBMAKE_base) DESTDIR="$(DESTDIR_intel)" CFLAGS="$(CFLAGS_int
 
 XML_CATALOG_FILES := $(shell bin/find-file /usr/local/etc/xml/catalog /opt/homebrew/etc/xml/catalog)
 
-.PHONY: setup download compile stage install package
+.PHONY: setup download compile stage install package clean all test vars
 
 .SECONDARY:
 
@@ -59,14 +59,26 @@ clean:
 	$(SUDO) rm -rf "$(DESTDIR)"
 	rm -f "$(BUILD_DIR)"/osx-compiled-* "$(BUILD_DIR)"/osx-staged-* "$(BUILD_DIR)"/osx-installed*
 
-vars:
+all: compile stage install
+	echo "All tasks completed."
+
+test:
+	echo "Running tests (placeholder)"
+
+vars: vars_basic vars_submake vars_flags
+
+vars_basic:
 	# VERSION = $(VERSION)
 	# PREFIX = $(PREFIX)
 	# DESTDIR = $(DESTDIR)
 	# GIT_PREFIX = $(GIT_PREFIX)
 	# BUILD_DIR = $(BUILD_DIR)
+
+vars_submake:
 	# SUBMAKE_arm = $(SUBMAKE_arm)
 	# SUBMAKE_intel = $(SUBMAKE_intel)
+
+vars_flags:
 	# INCLUDE_GUI = $(INCLUDE_GUI)
 	# INCLUDE_SUBTREE_DOC = $(INCLUDE_SUBTREE_DOC)
 	# XML_CATALOG_FILES = $(XML_CATALOG_FILES)
