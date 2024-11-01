@@ -33,3 +33,4 @@ jobs:
       with:
         files: git-*.pkg
         tag_name: ${{ steps.version.outputs.VERSION }}
+        token: ${{ secrets.TOKEN }}
