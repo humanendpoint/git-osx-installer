@@ -14,3 +14,7 @@ repos:
       - id: mixed-line-ending
       - id: trailing-whitespace
         args: ["--markdown-linebreak-ext=md"]
+  - repo: https://github.com/mrtazz/checkmake
+    rev: 0.2.2
+    hooks:
+      - id: checkmake
