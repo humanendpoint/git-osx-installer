@@ -29,6 +29,6 @@ Requires Xcode Command Line Tools to build (which can be installed with `xcode-s
 ```shell
 git clone https://github.com/MoravianUniversity/git_osx_installer.git
 cd git_osx_installer
-#make INCLUDE_SUBTREE_DOC=1 setup  # only required if including git-subtree documentation 
+#make INCLUDE_SUBTREE_DOC=1 setup  # only required if including git-subtree documentation
 make package  # options: INCLUDE_SUBTREE_DOC=1 INCLUDE_GUI=1
 ```
