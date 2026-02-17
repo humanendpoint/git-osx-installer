@@ -110,7 +110,7 @@ $(BUILD_DIR)/git-%/osx-built-git: $(BUILD_DIR)/git-%/Makefile
 
 $(BUILD_DIR)/git-%/osx-built-keychain:
 	cd "$(BUILD_DIR)/git-$*/contrib/credential/osxkeychain"; \
-	$(MAKE) CC="cc $(ARCH_FLAGS_${*})"
+	$(MAKE) CC="cc $(ARCH_FLAGS_${*})" CFLAGS="$(CFLAGS_${*})" LDFLAGS="$(LDFLAGS_${*})"
 	touch "$@"
 
 ifdef INCLUDE_SUBTREE_DOC
