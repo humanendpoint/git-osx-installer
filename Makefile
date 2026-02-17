@@ -3,6 +3,10 @@ SUDO := sudo
 C_INCLUDE_PATH := /usr/include
 CPLUS_INCLUDE_PATH := /usr/include
 LD_LIBRARY_PATH := /usr/lib
+# Homebrew OpenSSL
+OPENSSL_PREFIX := $(shell brew --prefix openssl@3)
+CFLAGS += -I$(OPENSSL_PREFIX)/include
+LDFLAGS += -L$(OPENSSL_PREFIX)/lib
 
 VERSION := $(strip $(shell bin/latest-git-version | head -n1))
 DOWNLOAD_LOCATION := https://www.kernel.org/pub/software/scm/git
@@ -10,10 +14,10 @@ DOWNLOAD_LOCATION := https://www.kernel.org/pub/software/scm/git
 ARCH_FLAGS_intel := -target x86_64-apple-macos10.12
 ARCH_FLAGS_arm := -target arm64-apple-macos11
 
-CFLAGS_intel := $(ARCH_FLAGS_intel)
-LDFLAGS_intel := $(ARCH_FLAGS_intel)
-CFLAGS_arm := $(ARCH_FLAGS_arm)
-LDFLAGS_arm := $(ARCH_FLAGS_arm)
+CFLAGS_arm := $(ARCH_FLAGS_arm) -I$(OPENSSL_PREFIX)/include
+LDFLAGS_arm := $(ARCH_FLAGS_arm) -L$(OPENSSL_PREFIX)/lib
+CFLAGS_intel := $(ARCH_FLAGS_intel) -I$(OPENSSL_PREFIX)/include
+LDFLAGS_intel := $(ARCH_FLAGS_intel) -L$(OPENSSL_PREFIX)/lib
 
 PREFIX := /usr/local
 GIT_PREFIX := $(PREFIX)/git
