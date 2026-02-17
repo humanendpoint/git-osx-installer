@@ -1,2 +1,5 @@
 #!/usr/bin/env bash
-curl -fsSL http://git-scm.com/ 2>&1 | grep '<span class="version">' -A 1 | tail -n 1 | sed $sed_regexp 's/ *//'
+curl -fsSL https://mirrors.edge.kernel.org/pub/software/scm/git/ | \
+grep -o 'git-[0-9][^"]*\.tar\.gz' | \
+sed 's/git-\(.*\)\.tar\.gz/\1/' | \
+sort -V | tail -n1
