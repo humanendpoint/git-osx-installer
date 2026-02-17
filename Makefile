@@ -11,8 +11,8 @@ LDFLAGS += -L$(OPENSSL_PREFIX)/lib
 VERSION := $(strip $(shell bin/latest-git-version | head -n1))
 DOWNLOAD_LOCATION := https://www.kernel.org/pub/software/scm/git
 
-ARCH_FLAGS_intel := -target x86_64-apple-macos10.12
-ARCH_FLAGS_arm := -target arm64-apple-macos11
+ARCH_FLAGS_intel := -target x86_64-apple-macos12
+ARCH_FLAGS_arm   := -target arm64-apple-macos12
 
 CFLAGS_arm := $(ARCH_FLAGS_arm) -I$(OPENSSL_PREFIX)/include
 LDFLAGS_arm := $(ARCH_FLAGS_arm) -L$(OPENSSL_PREFIX)/lib
