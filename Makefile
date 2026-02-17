@@ -34,9 +34,7 @@ SUBMAKE_base := "$(MAKE)" C_INCLUDE_PATH="$(C_INCLUDE_PATH)" CPLUS_INCLUDE_PATH=
 SUBMAKE_arm := $(SUBMAKE_base) DESTDIR="$(DESTDIR_arm)" CFLAGS="$(CFLAGS_arm)" LDFLAGS="$(LDFLAGS_arm)"
 SUBMAKE_intel := $(SUBMAKE_base) DESTDIR="$(DESTDIR_intel)" CFLAGS="$(CFLAGS_intel)" LDFLAGS="$(LDFLAGS_intel)"
 
-XML_CATALOG_FILES := $(firstword \
-  $(wildcard /usr/local/etc/xml/catalog) \
-  $(wildcard /opt/homebrew/etc/xml/catalog))
+XML_CATALOG_FILES := $(shell bin/find-file /usr/local/etc/xml/catalog /opt/homebrew/etc/xml/catalog)
 
 .PHONY: setup download compile stage install package clean all test vars
 
@@ -178,7 +176,7 @@ ifdef INCLUDE_GUI
 endif
 	mkdir -p "$(DESTDIR)$(PREFIX)/bin"
 	cd "$(DESTDIR)$(PREFIX)/bin"; find ../git/bin -type f -exec ln -sf {} \;
-	for man in $(ls "$(DESTDIR)$(GIT_PREFIX)/share/man/"); do mkdir -p "$(DESTDIR)$(PREFIX)/share/man/$$man"; (cd "$(DESTDIR)$(PREFIX)/share/man/$$man"; ln -sf ../../../git/share/man/$$man/* ./); done
+	for man in $$(ls "$(DESTDIR)$(GIT_PREFIX)/share/man/"); do mkdir -p "$(DESTDIR)$(PREFIX)/share/man/$$man"; (cd "$(DESTDIR)$(PREFIX)/share/man/$$man"; ln -sf ../../../git/share/man/$$man/* ./); done
 	touch "$@"
 
 $(BUILD_DIR)/osx-installed: $(BUILD_DIR)/osx-installed-bin $(BUILD_DIR)/osx-installed-man $(BUILD_DIR)/osx-installed-assets
