@@ -176,7 +176,7 @@ ifdef INCLUDE_GUI
 endif
 	mkdir -p "$(DESTDIR)$(PREFIX)/bin"
 	cd "$(DESTDIR)$(PREFIX)/bin"; find ../git/bin -type f -exec ln -sf {} \;
-	for man in $$(ls "$(DESTDIR)$(GIT_PREFIX)/share/man/"); do mkdir -p "$(DESTDIR)$(PREFIX)/share/man/$$man"; (cd "$(DESTDIR)$(PREFIX)/share/man/$$man"; ln -sf ../../../git/share/man/$$man/* ./); done
+	for man in $(ls "$(DESTDIR)$(GIT_PREFIX)/share/man/"); do mkdir -p "$(DESTDIR)$(PREFIX)/share/man/$$man"; (cd "$(DESTDIR)$(PREFIX)/share/man/$$man"; ln -sf ../../../git/share/man/$$man/* ./); done
 	touch "$@"
 
 $(BUILD_DIR)/osx-installed: $(BUILD_DIR)/osx-installed-bin $(BUILD_DIR)/osx-installed-man $(BUILD_DIR)/osx-installed-assets
