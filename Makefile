@@ -104,8 +104,11 @@ $(BUILD_DIR)/git-%/osx-built-git: $(BUILD_DIR)/git-%/Makefile
 	cd "$(BUILD_DIR)/git-$*"; $(SUBMAKE_${*}) -j 3 all strip
 	touch "$@"
 
-$(BUILD_DIR)/git-%/osx-built-keychain: $(BUILD_DIR)/git-%/Makefile
-	cd "$(BUILD_DIR)/git-$*/contrib/credential/osxkeychain"; $(SUBMAKE_${*}) CFLAGS="$(CFLAGS_${*}) -g -O2"
+$(BUILD_DIR)/git-%/osx-built-keychain:
+	cd "$(BUILD_DIR)/git-$*/contrib/credential/osxkeychain"; \
+	$(MAKE) $(FLAGS) prefix="$(GIT_PREFIX)" DESTDIR="$(DESTDIR_${*})" \
+	CFLAGS="$(CFLAGS_${*}) -g -O2" \
+	LDFLAGS="$(LDFLAGS_${*})"
 	touch "$@"
 
 ifdef INCLUDE_SUBTREE_DOC
