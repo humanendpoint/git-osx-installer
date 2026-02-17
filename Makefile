@@ -4,7 +4,7 @@ C_INCLUDE_PATH := /usr/include
 CPLUS_INCLUDE_PATH := /usr/include
 LD_LIBRARY_PATH := /usr/lib
 
-VERSION := $(shell bin/latest-git-version)
+VERSION := $(strip $(shell bin/latest-git-version | head -n1))
 DOWNLOAD_LOCATION := https://www.kernel.org/pub/software/scm/git
 
 ARCH_FLAGS_intel := -target x86_64-apple-macos10.12
