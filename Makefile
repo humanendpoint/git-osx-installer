@@ -196,4 +196,4 @@ $(BUILD_DIR)/osx-installed: $(BUILD_DIR)/osx-installed-bin $(BUILD_DIR)/osx-inst
 ##### Package #####
 
 git-$(VERSION).pkg: $(BUILD_DIR)/osx-installed
-pkgbuild --identifier com.git.pkg --version $(VERSION) --root "$(DESTDIR)" --install-location "$(PREFIX)" $(COMP_PLIST) git-$(VERSION).pkg
+	pkgbuild --identifier com.git.pkg --version $(VERSION) --root "$(DESTDIR)" --install-location "$(PREFIX)" $(COMP_PLIST) git-$(VERSION).pkg
